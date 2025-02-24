@@ -25,9 +25,32 @@
   font-weight: 600;
   font-size: 16px;
   transition: ease 0.1s;
+  border-right: 1px solid rgb(236, 236, 236);
+}
+
+.main-navigation .last-NavLink {
+  border-right: none;
 }
 
 .main-navigation > ul > li > a:hover {
   background-color: var(--secondaryColor);
   color: white;
+}
+
+.main-navigation .active {
+  position: relative;
+  background-color: var(--secondaryColor);
+  color: white;
+}
+
+.main-navigation .active::before {
+  content: "";
+  position: absolute;
+  bottom: 25%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
 }
