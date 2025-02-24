@@ -1,5 +1,13 @@
 :root {
+  --primaryBgColor: rgba(249, 249, 249, 255);
+  --secondaryBgColor: rgb(250, 243, 235);
+  --primaryColor: rgb(32, 40, 43);
+  --secondaryColor: rgb(239, 139, 89);
+}
+
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: Calibri, "Trebuchet MS", sans-serif;
 }
