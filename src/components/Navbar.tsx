@@ -5,7 +5,7 @@ import "./Navbar.css";
 export default function Navbar() {
   return (
     <nav className="main-navigation">
-      <h2>WebShop</h2>
+      <h2>WebStore</h2>
       <ul>
         <li>
           <NavLink
