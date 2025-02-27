@@ -12,3 +12,11 @@ export type Product = {
   image: string;
   rating: Rating;
 };
+
+export type NewProduct = {
+  title: string;
+  price: number;
+  description: string;
+  category: string;
+  image: string;
+};

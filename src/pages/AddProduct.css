@@ -70,3 +70,13 @@
   border-radius: 25px;
   transform: translateY(-5px);
 }
+
+.addProduct-section > .invalid-input {
+  text-align: center;
+  color: red;
+}
+
+.addProduct-section > .success-msg {
+  text-align: center;
+  color: green;
+}
