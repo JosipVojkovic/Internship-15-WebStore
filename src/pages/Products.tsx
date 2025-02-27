@@ -1,120 +1,46 @@
+import { useEffect, useState } from "react";
+
 import Spinner from "../components/Spinner";
+import ProductsList from "./ProductsList";
+
 import "./Products.css";
+import { getProducts } from "../api/api";
+import { Product } from "../types/types";
 
 export default function Products() {
-  const isVisible = false;
+  const [products, setProducts] = useState<Product[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const result = await getProducts();
+        setProducts(result);
+      } catch (err) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError("An unknown error occurred");
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getData();
+  }, []);
 
   return (
     <section className="products-section">
       <h1>Products</h1>
-      <div className="products-container">
-        {isVisible ? (
-          <>
-            <div className="product-card">
-              <div className="product-image">
-                <img src="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg" />
-              </div>
-
-              <div className="product-text">
-                <div className="review-container">
-                  <p>
-                    ⭐<span className="review-rating">3.9</span>
-                  </p>
-                  <p>(120 Reviews)</p>
-                </div>
-                <h3>Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops</h3>
-                <p>$ 109.95</p>
-              </div>
-            </div>
-            <div className="product-card">
-              <div className="product-image">
-                <img src="https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg" />
-              </div>
-
-              <div className="product-text">
-                <div className="review-container">
-                  <p>
-                    ⭐<span className="review-rating">4.1</span>
-                  </p>
-                  <p>(229 Reviews)</p>
-                </div>
-                <h3>Mens Casual Premium Slim Fit T-Shirts</h3>
-                <p>$ 22.3</p>
-              </div>
-            </div>
-
-            <div className="product-card">
-              <div className="product-image">
-                <img src="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg" />
-              </div>
-
-              <div className="product-text">
-                <div className="review-container">
-                  <p>
-                    ⭐<span className="review-rating">3.9</span>
-                  </p>
-                  <p>(120 Reviews)</p>
-                </div>
-                <h3>Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops</h3>
-                <p>$ 109.95</p>
-              </div>
-            </div>
-
-            <div className="product-card">
-              <div className="product-image">
-                <img src="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg" />
-              </div>
-
-              <div className="product-text">
-                <div className="review-container">
-                  <p>
-                    ⭐<span className="review-rating">3.9</span>
-                  </p>
-                  <p>(120 Reviews)</p>
-                </div>
-                <h3>Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops</h3>
-                <p>$ 109.95</p>
-              </div>
-            </div>
-
-            <div className="product-card">
-              <div className="product-image">
-                <img src="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg" />
-              </div>
-
-              <div className="product-text">
-                <div className="review-container">
-                  <p>
-                    ⭐<span className="review-rating">3.9</span>
-                  </p>
-                  <p>(120 Reviews)</p>
-                </div>
-                <h3>Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops</h3>
-                <p>$ 109.95</p>
-              </div>
-            </div>
-
-            <div className="product-card">
-              <div className="product-image">
-                <img src="https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg" />
-              </div>
-
-              <div className="product-text">
-                <div className="review-container">
-                  <p>
-                    ⭐<span className="review-rating">4.1</span>
-                  </p>
-                  <p>(229 Reviews)</p>
-                </div>
-                <h3>Mens Casual Premium Slim Fit T-Shirts</h3>
-                <p>$ 22.3</p>
-              </div>
-            </div>
-          </>
-        ) : (
-          <Spinner />
-        )}
-      </div>
+      {error ? (
+        <p className="error-msg">{error}</p>
+      ) : (
+        <div className="products-container">
+          {loading ? <Spinner /> : <ProductsList products={products} />}
+        </div>
+      )}
     </section>
   );
 }
