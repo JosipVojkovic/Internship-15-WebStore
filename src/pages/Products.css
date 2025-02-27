@@ -26,6 +26,13 @@
   background-color: var(--primaryBgColor);
   padding: 5px;
   border-radius: 0 0 20px 20px;
+  cursor: pointer;
+  transition: ease 0.15s;
+}
+
+.products-container > .product-card:hover {
+  box-shadow: 0 0 5px var(--secondaryColor);
+  transform: scale(1.03);
 }
 
 .product-card > .product-image {
