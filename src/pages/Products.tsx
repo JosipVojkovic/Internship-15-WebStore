@@ -88,6 +88,23 @@ export default function Products() {
             <p>$ 109.95</p>
           </div>
         </div>
+
+        <div className="product-card">
+          <div className="product-image">
+            <img src="https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg" />
+          </div>
+
+          <div className="product-text">
+            <div className="review-container">
+              <p>
+                ⭐<span className="review-rating">4.1</span>
+              </p>
+              <p>(229 Recenzija)</p>
+            </div>
+            <h3>Mens Casual Premium Slim Fit T-Shirts</h3>
+            <p>$ 22.3</p>
+          </div>
+        </div>
       </div>
     </section>
   );
