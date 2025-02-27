@@ -16,7 +16,18 @@ export default function Products() {
     const getData = async () => {
       try {
         const result = await getProducts();
-        setProducts(result);
+        const storedProducts = localStorage.getItem("addedProducts");
+        const parsedProducts: Product[] = storedProducts
+          ? JSON.parse(storedProducts)
+          : [];
+
+        console.log(parsedProducts);
+
+        if (Array.isArray(parsedProducts)) {
+          setProducts([...result, ...parsedProducts]);
+        } else {
+          setProducts(result);
+        }
       } catch (err) {
         if (err instanceof Error) {
           setError(err.message);
@@ -30,6 +41,8 @@ export default function Products() {
 
     getData();
   }, []);
+
+  console.log(products);
 
   return (
     <section className="products-section">
