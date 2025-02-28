@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import Spinner from "../components/Spinner";
-import ProductsList from "./ProductsList";
+import ProductCard from "../components/ProductCard";
 
 import "./Products.css";
 import { getProducts } from "../api/api";
@@ -17,6 +17,12 @@ export default function Products() {
     search: "",
   });
 
+  const filteredProducts = products.filter(
+    (p) =>
+      p.title.toLowerCase().includes(filters.search.toLowerCase()) &&
+      (!filters.category || p.category === filters.category)
+  );
+
   function handleFilterChange(
     e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
   ) {
@@ -24,8 +30,6 @@ export default function Products() {
 
     setFilters((prev) => ({ ...prev, [id]: value }));
   }
-
-  console.log(JSON.stringify(filters));
 
   useEffect(() => {
     const getData = async () => {
@@ -65,7 +69,19 @@ export default function Products() {
         <p className="error-msg">{error}</p>
       ) : (
         <div className="products-container">
-          {loading ? <Spinner /> : <ProductsList products={products} />}
+          {loading ? (
+            <Spinner />
+          ) : (
+            <>
+              {filteredProducts.length ? (
+                filteredProducts.map((p) => (
+                  <ProductCard key={p.id} product={p} />
+                ))
+              ) : (
+                <p>Nema dostupnih proizvoda za odabrane filtre.</p>
+              )}
+            </>
+          )}
         </div>
       )}
     </section>

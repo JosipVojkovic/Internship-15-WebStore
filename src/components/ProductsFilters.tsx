@@ -20,9 +20,7 @@ export default function ProductsFilters({
           onChange={(e) => handleChange(e)}
           value={filters.category}
         >
-          <option value="" disabled>
-            Select category
-          </option>
+          <option value="">No category</option>
           <option value="men's clothing">Men's clothing</option>
           <option value="women's clothing">Women's clothing</option>
           <option value="jewelery">Jewelery</option>
