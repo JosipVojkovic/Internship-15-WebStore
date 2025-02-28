@@ -40,9 +40,7 @@ export default function Products() {
       state: {
         product: selectedProduct,
         recommendedProducts: products.filter(
-          (p) =>
-            p.id !== selectedProduct?.id &&
-            p.category === selectedProduct?.category
+          (p) => p.category === selectedProduct?.category
         ),
       },
     });
