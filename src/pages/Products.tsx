@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-
-import Spinner from "../components/Spinner";
-import ProductCard from "../components/ProductCard";
+import { useNavigate } from "react-router-dom";
 
 import "./Products.css";
+import Spinner from "../components/Spinner";
+import ProductCard from "../components/ProductCard";
+import ProductsFilters from "../components/ProductsFilters";
 import { getProducts } from "../api/api";
 import { Filters, Product } from "../types/types";
-import ProductsFilters from "../components/ProductsFilters";
 
 export default function Products() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -16,6 +16,8 @@ export default function Products() {
     category: "",
     search: "",
   });
+
+  const navigate = useNavigate();
 
   const filteredProducts = products.filter(
     (p) =>
@@ -29,6 +31,12 @@ export default function Products() {
     const { id, value } = e.target;
 
     setFilters((prev) => ({ ...prev, [id]: value }));
+  }
+
+  function handleProductCardClick(productId: number) {
+    navigate(`/product/${productId}`, {
+      state: { product: products.find((p) => p.id === productId) },
+    });
   }
 
   useEffect(() => {
@@ -75,7 +83,11 @@ export default function Products() {
             <>
               {filteredProducts.length ? (
                 filteredProducts.map((p) => (
-                  <ProductCard key={p.id} product={p} />
+                  <ProductCard
+                    key={p.id}
+                    product={p}
+                    handleClick={handleProductCardClick}
+                  />
                 ))
               ) : (
                 <p>Nema dostupnih proizvoda za odabrane filtre.</p>

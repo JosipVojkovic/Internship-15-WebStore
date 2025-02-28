@@ -1,9 +1,19 @@
 import { Product } from "../types/types";
 
-export default function ProductCard({ product }: { product: Product }) {
+export default function ProductCard({
+  product,
+  handleClick,
+}: {
+  product: Product;
+  handleClick: (productId: number) => void;
+}) {
   return (
     <>
-      <div key={product.id} className="product-card">
+      <div
+        key={product.id}
+        className="product-card"
+        onClick={() => handleClick(product.id)}
+      >
         <div className="product-image">
           <img src={product.image} />
         </div>
