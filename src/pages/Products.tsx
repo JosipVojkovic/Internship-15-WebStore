@@ -36,6 +36,8 @@ export default function Products() {
   function handleProductCardClick(productId: number) {
     const selectedProduct = products.find((p) => p.id === productId);
 
+    window.scrollTo(0, 0);
+
     navigate(`/product/${productId}`, {
       state: {
         product: selectedProduct,

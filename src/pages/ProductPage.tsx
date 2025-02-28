@@ -14,6 +14,8 @@ export default function ProductPage() {
   function handleProductCardClick(productId: number) {
     const selectedProduct = recommendedProducts.find((p) => p.id === productId);
 
+    window.scrollTo(0, 0);
+
     navigate(`/product/${productId}`, {
       state: {
         product: selectedProduct,
