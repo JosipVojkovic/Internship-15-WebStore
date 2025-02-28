@@ -22,6 +22,7 @@
 .products-container > .product-card {
   display: flex;
   flex-direction: column;
+  min-width: calc(20% - 20px);
   max-width: calc(20% - 20px);
   background-color: var(--primaryBgColor);
   padding: 5px;

@@ -34,8 +34,17 @@ export default function Products() {
   }
 
   function handleProductCardClick(productId: number) {
+    const selectedProduct = products.find((p) => p.id === productId);
+
     navigate(`/product/${productId}`, {
-      state: { product: products.find((p) => p.id === productId) },
+      state: {
+        product: selectedProduct,
+        recommendedProducts: products.filter(
+          (p) =>
+            p.id !== selectedProduct?.id &&
+            p.category === selectedProduct?.category
+        ),
+      },
     });
   }
 
@@ -90,7 +99,7 @@ export default function Products() {
                   />
                 ))
               ) : (
-                <p>Nema dostupnih proizvoda za odabrane filtre.</p>
+                <p>There are no available products for the selected filters.</p>
               )}
             </>
           )}
