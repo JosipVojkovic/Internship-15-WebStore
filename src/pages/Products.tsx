@@ -5,12 +5,27 @@ import ProductsList from "./ProductsList";
 
 import "./Products.css";
 import { getProducts } from "../api/api";
-import { Product } from "../types/types";
+import { Filters, Product } from "../types/types";
+import ProductsFilters from "../components/ProductsFilters";
 
 export default function Products() {
   const [products, setProducts] = useState<Product[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const [filters, setFilters] = useState<Filters>({
+    category: "",
+    search: "",
+  });
+
+  function handleFilterChange(
+    e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
+  ) {
+    const { id, value } = e.target;
+
+    setFilters((prev) => ({ ...prev, [id]: value }));
+  }
+
+  console.log(JSON.stringify(filters));
 
   useEffect(() => {
     const getData = async () => {
@@ -20,8 +35,6 @@ export default function Products() {
         const parsedProducts: Product[] = storedProducts
           ? JSON.parse(storedProducts)
           : [];
-
-        console.log(parsedProducts);
 
         if (Array.isArray(parsedProducts)) {
           setProducts([...result, ...parsedProducts]);
@@ -42,11 +55,12 @@ export default function Products() {
     getData();
   }, []);
 
-  console.log(products);
-
   return (
     <section className="products-section">
       <h1>Products</h1>
+      {!loading && (
+        <ProductsFilters filters={filters} handleChange={handleFilterChange} />
+      )}
       {error ? (
         <p className="error-msg">{error}</p>
       ) : (

@@ -20,3 +20,8 @@ export type NewProduct = {
   category: string;
   image: string;
 };
+
+export type Filters = {
+  category: string;
+  search: string;
+};
